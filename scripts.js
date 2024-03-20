@@ -1,3 +1,4 @@
+let xp = 0;
 let health = 100;
 let gold = 50;
 let currentWeapon = 0;
@@ -5,10 +6,9 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick",];
 
-const button1 = document.querySelector("#button1");
+const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
-
 const text = document.querySelector("#text");
 const xpText = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
@@ -26,7 +26,7 @@ const monsters = [
     { name: "slime", level: 2, health: 15 },
     { name: "fanged beast", level: 8, health: 60 },
     { name: "dragon", level: 20, health: 300 },
-];
+]
 const locations = [{
     name: "town square",
     "button text": ["Go to store", "Go to cave", "Fight dragon"],
@@ -106,8 +106,6 @@ function goTown() {
 function goStore() {
     update(locations[1]);
 
-
-
 }
 
 function goCave() {
@@ -123,7 +121,7 @@ function buyHealth() {
         healthText.innerText = health;
 
     } else {
-        text.innerText = "You do not have enough gold to buy health."
+        text.innerText = "You do not have enough gold to buy health.";
     }
 }
 function buyWeapon() {
@@ -162,8 +160,8 @@ function sellWeapon() {
         text.innerText += " In your inventory you have: " + inventory;
     }
     else {
-        inventory.length < 1
-        text.innerText = "Don't sell your only weapon!"
+        inventory.length < 1;
+        text.innerText = "Don't sell your only weapon!";
     };
 }
 
@@ -183,14 +181,14 @@ function fightDragon() {
 function goFight() {
     update(locations[3]);
     monsterHealth = monsters[fighting].health;
-    const monsterStats = document.querySelector("#monsterStats");
-    monsterStats.style.display = 'block';
+    // const monsterStats = document.querySelector("#monsterStats");
+    monsterStats.style.display = "block";
     monsterName.innerText = monsters[fighting].name;
-    monsterHealthText.innerText = monsterHealthText;
+    monsterHealthText.innerText = monsterHealth;
 
 
 
-};
+}
 
 function attack() {
     text.innerText = "The " + monsters[fighting].name + " attacks.";
@@ -198,20 +196,17 @@ function attack() {
     health -= getMonsterAttackValue(monsters[fighting].level);
     if (isMonsterHit()) {
         monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+    } else {
+        text.innerText += " You miss.";
     }
-    else {
-        text.innerText += " You miss."
-    }
-
     healthText.innerText = health;
-    monsterHealthText.innerText = monsterHealthhealth;
+    monsterHealthText.innerText = monsterHealth;
     if (health <= 0) {
         lose();
     } else if (monsterHealth <= 0) {
         if (fighting === 2) {
             winGame();
-        }
-        else {
+        } else {
             defeatMonster();
         }
     }
@@ -223,7 +218,7 @@ function attack() {
 
 function getMonsterAttackValue(level) {
     const hit = (level * 5) - (Math.floor(Math.random() * xp));
-    console.log(hit)
+    console.log(hit);
     return hit > 0 ? hit : 0;
 
 }
@@ -233,22 +228,22 @@ function isMonsterHit() {
 }
 
 function dodge() {
-    text.innerText = "You dodge the attack from the " + monsters[fighting].name + ""
+    text.innerText = "You dodge the attack from the " + monsters[fighting].name + "";
 }
 
 function defeatMonster() {
-    gold += Math.floor(monsters[fighting].level * 6.7)
+    gold += Math.floor(monsters[fighting].level * 6.7);
     xp += monsters[fighting].level;
     goldText.innerText = gold;
     xpText.innerText = xp;
-    update(locations[4])
+    update(locations[4]);
 }
 function lose() {
     update(locations[5]);
 }
 
 function winGame() {
-    update(locations[6])
+    update(locations[6]);
 }
 
 function restart() {
@@ -266,7 +261,7 @@ function restart() {
 }
 
 function easterEgg() {
-    update(locations[7])
+    update(locations[7]);
 }
 
 function pick(guess) {
@@ -283,11 +278,11 @@ function pick(guess) {
         gold += 20;
         goldText.innerText = gold;
     } else {
-        text.innerText += "Wrong! You lose 10 health!"
-        health -= 10
-        healthText.innerText = health
+        text.innerText += "Wrong! You lose 10 health!";
+        health -= 10;
+        healthText.innerText = health;
         if (health <= 0) {
-            lose()
+            lose();
         }
 
     }
